@@ -1,3 +1,5 @@
+利用create-react-app来搭建g6-flow-editor的脚手架
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
