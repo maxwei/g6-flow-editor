@@ -10,14 +10,13 @@ export default function (G6) {
         getEvents() {
             return {
                 'canvas:mousemove': 'onMouseMove',
-                //'canvas:mouseup': 'onMouseUp',
+                'canvas:mouseup': 'onMouseUp',
                 'canvas:mouseleave': 'onMouseLeave',
-                'dragend':'onMouseUp'
             }
         },
         // eslint-disable-next-line no-unused-vars
         onMouseMove(e) {
-             console.log('onMouseMove我在移动中')
+            // console.log('onMouseMove我在移动中')
             // console.log(e)
             // if (this.graph.get('addNodeDragging')) {
             //     let delegateShape = this.graph.get('addDelegateShape')
@@ -49,6 +48,17 @@ export default function (G6) {
         onMouseUp(e) {
             console.log('behavior>>我释放了鼠标')
             console.log(e)
+            console.log(this.graph)
+            const timestamp = new Date().getTime()
+            const randomNum = Math.floor((Math.random() * 1000) + 1).toString()// 产生1~1000之间的随机尾数
+            const id = `${timestamp}${randomNum}`// 节点id
+            this.graph.addItem('node',{
+                id:id,
+                type:'circle',
+                label:'边测试',
+                x:e.x,
+                y:e.y,
+            })
             // if (this.graph.get('addNodeDragging')){
             //     console.log('behavior>>我释放了鼠标')
             //     console.log(e)
@@ -122,7 +132,7 @@ export default function (G6) {
         // },
         // eslint-disable-next-line no-unused-vars
         onMouseLeave(e) {
-             console.log('onMouseLeave我移除了')
+            // console.log('onMouseLeave我移除了')
             // console.log(e)
             // if (this.graph.get('addNodeDragging')) {
             //     this._clearDelegate()

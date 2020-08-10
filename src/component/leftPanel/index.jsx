@@ -10,15 +10,10 @@ class LeftPanel extends Component {
     }
 
     render() {
-        const {graph}=this.props
+
         return (
             <div className="left-panel">
-                <div className="drag-item item-start"
-                 data-item={'{ label: \'开始\',type:\'start-node\'}'} 
-                 draggable="true"
-                 onDragStart={(event)=>{
-                    graph.emit('canvas:mouseup', event)
-                 }}
+                <div className="drag-item item-start" data-item={'{ label: \'开始\',type:\'start-node\'}'} draggable="true"
                  >
                     开始
                 </div>

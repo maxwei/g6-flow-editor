@@ -3,6 +3,7 @@ import G6 from '@antv/g6';
 import PropTypes from 'prop-types'
 import LeftPanel from '../src/component/leftPanel'
 import resigterBehavior from './registerBehavior'
+import AddItemPanel from './plugins/addItemPanel'
 import './App.scss';
 
 resigterBehavior(G6)
@@ -32,32 +33,40 @@ const demoData = {
 class App extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-        }
+        this.state = {}
         this.G6EditorRef = React.createRef()
-
+        this.LeftPanelRef = React.createRef()
     }
     componentDidMount() {
+      const addItemPanel = new AddItemPanel({container:this.LeftPanelRef.current});
+
       const canvasWidth = this.G6EditorRef.current.clientWidth || 800
       const canvasHeight = window.innerHeight - 100
       this.graph = new G6.Graph({
+        plugins: [addItemPanel],
           container: this.G6EditorRef.current,
           width: canvasWidth ,
           height: canvasHeight,
           modes: {
-            default: ['drag-canvas', 'drag-node', 'dragAddNode'],
+            default: ['drag-canvas', 'drag-node','zoom-canvas','dragAddNode'],
             view: [],
-            edit: [],
+            edit: ['dragAddNode'],
         },
       })
-
       this.graph.data(demoData)
       this.graph.render()
+      // this.graph.on('canvas:mouseup', evt => {
+      //   console.log('-------weilong--------')
+      //   console.log(evt)
+      // })
   }
     render() {
         return (
           <div className="app">
-            <LeftPanel graph={this.graph}/>
+            <div ref={this.LeftPanelRef}>
+              <LeftPanel/>
+            </div>
+            
              <section style={{border:'1px solid red', background: '#f8f9fb' }} ref={this.G6EditorRef} />
           </div>  
         )
